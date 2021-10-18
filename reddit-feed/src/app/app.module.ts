@@ -6,6 +6,9 @@ import { FeedComponent } from './feed/feed.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { RedditEntryComponent } from './reddit-entry/reddit-entry.component';
 
+import { HttpClientModule } from '@angular/common/http';
+import {redditFeedService} from './redditFeed.service'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -14,9 +17,10 @@ import { RedditEntryComponent } from './reddit-entry/reddit-entry.component';
     RedditEntryComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [redditFeedService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
