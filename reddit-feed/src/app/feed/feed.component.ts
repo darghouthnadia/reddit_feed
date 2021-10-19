@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment';
   styleUrls: ['./feed.component.css']
 })
 export class FeedComponent implements OnInit {
-  
+
 
   public initialRedditFeed: RedditEntry[] = [];
   @Input() fetchedPageRedditFeed: RedditEntry[] = [];
@@ -20,14 +20,9 @@ export class FeedComponent implements OnInit {
   ngOnInit(): void {
     this.getRedditFeed.getFeed(this.redditUrl, 25).subscribe((entry: any) => {
       this.initialRedditFeed = entry;
-      this.getRedditFeed.getLastEntryId().next(this.getLastEntryId(this.initialRedditFeed));
-      this.getRedditFeed.getLastEntryId().subscribe(console.log);
+      this.getRedditFeed.setLastEntryId(this.initialRedditFeed);
+      this.getRedditFeed.setFirstEntryId(this.initialRedditFeed);
     })
    
   }
-
-  getLastEntryId(redditFeedArray : RedditEntry[]): string {
-    return redditFeedArray[redditFeedArray.length - 1].id;
-  }
-
 }

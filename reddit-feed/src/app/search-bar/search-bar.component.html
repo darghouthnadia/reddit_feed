@@ -1,4 +1,4 @@
 <input type="text" id="channel" name="channel">
-<button type="button">Search</button>
-<button [disabled]="firstLoad" >Previous</button>
+<button type="button" >Search</button>
+<button [disabled]="firstLoad" (click)="onPrevious()" >Previous</button>
 <button (click)="onNext()">Next</button>

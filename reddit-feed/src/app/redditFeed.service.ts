@@ -10,14 +10,18 @@ export class redditFeedService {
     numberOfEntries : number = 25;
     
     public lastEntryId = new BehaviorSubject('');
+    public firstEntryId =  new BehaviorSubject('');
 
   constructor(private http: HttpClient){
   }
    
-  public getFeed(redditUrl: string, n: number, idNext? : string, lastId?: string) {
+  public getFeed(redditUrl: string, n: number, idNext? : string, idPrevious?: string, lastId?: string) {
     let urlAdress = redditUrl+"?limit="+n;
     if(idNext) {
       urlAdress += "&after=t3_"+idNext;
+    }
+    if(idPrevious) {
+      urlAdress += "&before=t3_"+idPrevious;
     }
     return this.http
     .get(urlAdress)
@@ -30,8 +34,12 @@ export class redditFeedService {
     
   }
 
-  public getLastEntryId() {
-    return this.lastEntryId;
-  } 
+  public setLastEntryId(redditFeedArray : RedditEntry[]) {
+    this.lastEntryId.next(redditFeedArray[redditFeedArray.length - 1].id); 
+  }
+
+  public setFirstEntryId(redditFeedArray : RedditEntry[]) {
+    this.firstEntryId.next(redditFeedArray[0].id); 
+  }
 
 }
