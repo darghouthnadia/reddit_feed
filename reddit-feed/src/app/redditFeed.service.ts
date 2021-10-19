@@ -15,7 +15,7 @@ export class redditFeedService {
   constructor(private http: HttpClient){
   }
    
-  public getFeed(redditUrl: string, n: number, idNext? : string, idPrevious?: string, lastId?: string) {
+  public getFeed(redditUrl: string, n: number, idNext? : string, idPrevious?: string) {
     let urlAdress = redditUrl+"?limit="+n;
     if(idNext) {
       urlAdress += "&after=t3_"+idNext;

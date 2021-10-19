@@ -40,7 +40,7 @@ export class SearchBarComponent implements OnInit {
   onPrevious(): void {
     this.storageOfIds.last = this.lastId;
     this.storageOfIds.first = this.firstId;
-    this.getRedditFeed.getFeed('http://www.reddit.com/r/sweden.json', this.selectedOption, undefined, this.firstId).subscribe(result => {
+    this.getRedditFeed.getFeed('http://www.reddit.com/r/sweden.json', Number(this.selectedOption) + 1, undefined, this.firstId).subscribe(result => {
       this.items = result;
       this.getRedditFeed.setLastEntryId(this.items);
       this.getRedditFeed.setFirstEntryId(this.items);
