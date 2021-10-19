@@ -1,1 +1,18 @@
-<p>reddit-entry works!</p>
+<div *ngIf="entry"> 
+    <label>Author:</label>
+    <span>{{entry.author}}</span>
+     <br>
+    <label>Title:</label>
+    <span>{{entry.title}}</span>
+    <br>
+    <label>Score:</label>
+    <span>{{entry.score}}</span>
+    <br>
+    <label>Created:</label>
+    <span>{{entry.created}}</span>
+    <br>
+    <label>Num comments:</label>
+    <span>{{entry.num_comments}}</span>
+    <br>
+    <br>
+</div>

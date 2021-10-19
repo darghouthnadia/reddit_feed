@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { RedditEntry } from '../reddit-entry.model';
 
 @Component({
   selector: 'app-reddit-entry',
@@ -7,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RedditEntryComponent implements OnInit {
 
+  @Input() entry: RedditEntry | undefined;
   constructor() { }
 
   ngOnInit(): void {
