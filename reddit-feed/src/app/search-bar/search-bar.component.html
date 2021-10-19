@@ -1,4 +1,10 @@
 <input type="text" id="channel" name="channel">
 <button type="button" >Search</button>
-<button [disabled]="firstLoad" (click)="onPrevious()" >Previous</button>
-<button (click)="onNext()">Next</button>
+
+<button [disabled]="notOnFirstPage()" (click)="onPrevious()" >Previous</button>
+<select name="perPage" (change)="selectOption($event)">
+    <option value=10>10</option>
+    <option value=25 selected="selected">25</option>
+    <option value=50>50</option>
+</select>
+<button (click)="onNext()">Next</button> page: {{page}}

@@ -11,48 +11,83 @@ export class SearchBarComponent implements OnInit {
 
   public lastId = '';
   public firstId = '';
-  public items : RedditEntry[] = [];
-  public firstLoad: boolean = false;
+  storageOfIds = {last:'', first:''};
+  public items: RedditEntry[] = [];
+  selectedOption: number = 25;
+  page: number = 1;
   @Output() newItemEvent = new EventEmitter<RedditEntry[]>();
 
-  constructor(private getRedditFeed : redditFeedService) {
+  constructor(private getRedditFeed: redditFeedService) {
     this.refreshLastAndFirstId();
-   }
+  }
 
   ngOnInit(): void {
-    this.firstLoad = true;
   }
 
   onNext(): void {
-    this.getRedditFeed.getFeed('http://www.reddit.com/r/sweden.json', 25, this.lastId).subscribe(result => {
+    this.storageOfIds.last = this.lastId;
+    this.storageOfIds.first = this.firstId;
+    this.getRedditFeed.getFeed('http://www.reddit.com/r/sweden.json', this.selectedOption, this.lastId).subscribe(result => {
       this.items = result;
-      this.firstLoad = false;
       this.getRedditFeed.setLastEntryId(this.items);
       this.getRedditFeed.setFirstEntryId(this.items);
       this.refreshLastAndFirstId();
       this.newItemEvent.emit(this.items);
-    })
+      this.page += 1;
+    });
   }
 
   onPrevious(): void {
-    this.getRedditFeed.getFeed('http://www.reddit.com/r/sweden.json', 25, undefined, this.firstId).subscribe(result => {
+    this.storageOfIds.last = this.lastId;
+    this.storageOfIds.first = this.firstId;
+    this.getRedditFeed.getFeed('http://www.reddit.com/r/sweden.json', this.selectedOption, undefined, this.firstId).subscribe(result => {
       this.items = result;
       this.getRedditFeed.setLastEntryId(this.items);
       this.getRedditFeed.setFirstEntryId(this.items);
       this.refreshLastAndFirstId();
-      this.firstLoad = false;
       this.newItemEvent.emit(this.items);
-    })
+      this.page -= 1;
+    });
   }
 
   refreshLastAndFirstId() {
     this.getRedditFeed.lastEntryId.subscribe(value => {
       this.lastId = value;
+      console.log('last', value);
     });
     this.getRedditFeed.firstEntryId.subscribe(value => {
       this.firstId = value;
+      console.log('first', value);
     });
   }
+
+  notOnFirstPage() {
+    return this.page === 1;
+  }
+
+  selectOption(deviceValue: any) {
+    this.selectedOption = deviceValue.target.value;
+    if (this.page === 1) {
+      this.getRedditFeed.getFeed('http://www.reddit.com/r/sweden.json', this.selectedOption).subscribe(result => {
+        this.items = result;
+        this.getRedditFeed.setLastEntryId(this.items);
+        this.getRedditFeed.setFirstEntryId(this.items);
+        this.refreshLastAndFirstId();
+        this.newItemEvent.emit(this.items);
+      });
+    }
+    else {
+      this.getRedditFeed.getFeed('http://www.reddit.com/r/sweden.json', this.selectedOption, this.storageOfIds.last).subscribe(result => {
+        this.items = result;
+        this.getRedditFeed.setLastEntryId(this.items);
+        this.getRedditFeed.setFirstEntryId(this.items);
+        this.refreshLastAndFirstId();
+        this.newItemEvent.emit(this.items);
+      });
+    }
+
+  }
+
 
 
 }
