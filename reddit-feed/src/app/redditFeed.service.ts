@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { RedditEntry } from '../app/reddit-entry.model';
-import { Observable, BehaviorSubject  } from 'rxjs';
+import { BehaviorSubject  } from 'rxjs';
 import { map as rxMap } from 'rxjs/operators';
 
 @Injectable()
 export class redditFeedService {
     numberOfEntries : number = 25;
-
+    
     public lastEntryId = new BehaviorSubject('');
 
   constructor(private http: HttpClient){
