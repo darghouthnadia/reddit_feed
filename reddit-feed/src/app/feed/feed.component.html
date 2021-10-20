@@ -1,9 +1,4 @@
 <div>
-    <div *ngIf="initialRedditFeed.length && !fetchedPageRedditFeed.length">
-        <div *ngFor="let entry of initialRedditFeed">
-            <app-reddit-entry [entry]="entry"></app-reddit-entry>
-        </div>
-    </div>
     <div *ngIf="fetchedPageRedditFeed.length">
         <div *ngFor="let entry of fetchedPageRedditFeed">
             <app-reddit-entry [entry]="entry"></app-reddit-entry>

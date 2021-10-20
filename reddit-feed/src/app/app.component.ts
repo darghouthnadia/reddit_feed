@@ -13,6 +13,5 @@ export class AppComponent {
 
   fetchNewEntries(newEntries: RedditEntry[]) {
     this.fetchedEntries = newEntries;
-    
   }
 }

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  redditDataUrl:'http://www.reddit.com/r/sweden.json'
+  redditDataUrl:'http://www.reddit.com/r/'
 };
 
 /*

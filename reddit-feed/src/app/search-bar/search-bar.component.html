@@ -1,5 +1,5 @@
-<input type="text" id="channel" name="channel">
-<button type="button" >Search</button>
+<input type="text" id="channel" [(ngModel)]="channel">
+<button type="button" (click)="onChangeChannel()" >Search</button>
 
 <button [disabled]="notOnFirstPage()" (click)="onPrevious()" >Previous</button>
 <select name="perPage" (change)="selectOption($event)">

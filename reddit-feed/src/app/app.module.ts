@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { FeedComponent } from './feed/feed.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { RedditEntryComponent } from './reddit-entry/reddit-entry.component';
+import { FormsModule } from '@angular/forms';
 
 import { HttpClientModule } from '@angular/common/http';
 import {redditFeedService} from './redditFeed.service'
@@ -18,7 +19,8 @@ import {redditFeedService} from './redditFeed.service'
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [redditFeedService],
   bootstrap: [AppComponent]

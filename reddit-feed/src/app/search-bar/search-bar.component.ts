@@ -11,8 +11,10 @@ export class SearchBarComponent implements OnInit {
 
   public lastId = '';
   public firstId = '';
-  storageOfIds = {last:'', first:''};
   public items: RedditEntry[] = [];
+  channel = '';
+  storageOfIds = {last:'', first:''};
+ 
   selectedOption: number = 25;
   page: number = 1;
   @Output() newItemEvent = new EventEmitter<RedditEntry[]>();
@@ -27,7 +29,7 @@ export class SearchBarComponent implements OnInit {
   onNext(): void {
     this.storageOfIds.last = this.lastId;
     this.storageOfIds.first = this.firstId;
-    this.getRedditFeed.getFeed('http://www.reddit.com/r/sweden.json', this.selectedOption, this.lastId).subscribe(result => {
+    this.getRedditFeed.getFeed(this.selectedOption, this.channel, this.lastId).subscribe(result => {
       this.items = result;
       this.getRedditFeed.setLastEntryId(this.items);
       this.getRedditFeed.setFirstEntryId(this.items);
@@ -40,7 +42,7 @@ export class SearchBarComponent implements OnInit {
   onPrevious(): void {
     this.storageOfIds.last = this.lastId;
     this.storageOfIds.first = this.firstId;
-    this.getRedditFeed.getFeed('http://www.reddit.com/r/sweden.json', Number(this.selectedOption) + 1, undefined, this.firstId).subscribe(result => {
+    this.getRedditFeed.getFeed( Number(this.selectedOption) + 1,this.channel, undefined, this.firstId).subscribe(result => {
       this.items = result;
       this.getRedditFeed.setLastEntryId(this.items);
       this.getRedditFeed.setFirstEntryId(this.items);
@@ -68,16 +70,17 @@ export class SearchBarComponent implements OnInit {
   selectOption(deviceValue: any) {
     this.selectedOption = deviceValue.target.value;
     if (this.page === 1) {
-      this.getRedditFeed.getFeed('http://www.reddit.com/r/sweden.json', this.selectedOption).subscribe(result => {
+      this.getRedditFeed.getFeed(this.selectedOption, this.channel).subscribe(result => {
         this.items = result;
         this.getRedditFeed.setLastEntryId(this.items);
         this.getRedditFeed.setFirstEntryId(this.items);
         this.refreshLastAndFirstId();
         this.newItemEvent.emit(this.items);
-      });
+      },
+      err => console.log('HTTP Error', err));
     }
     else {
-      this.getRedditFeed.getFeed('http://www.reddit.com/r/sweden.json', this.selectedOption, this.storageOfIds.last).subscribe(result => {
+      this.getRedditFeed.getFeed(this.selectedOption,this.channel, this.storageOfIds.last).subscribe(result => {
         this.items = result;
         this.getRedditFeed.setLastEntryId(this.items);
         this.getRedditFeed.setFirstEntryId(this.items);
@@ -86,6 +89,22 @@ export class SearchBarComponent implements OnInit {
       });
     }
 
+  }
+
+  onChangeChannel() {
+    this.page = 1;
+    this.getRedditFeed.getFeed(this.selectedOption, this.channel).subscribe(result => {
+      this.items = result;
+      this.getRedditFeed.setLastEntryId(this.items);
+      this.getRedditFeed.setFirstEntryId(this.items);
+      this.refreshLastAndFirstId();
+      this.newItemEvent.emit(this.items);
+    },
+    err => {
+      this.items=[];
+      this.page = 1;
+      this.newItemEvent.emit([]);
+    });
   }
 
 

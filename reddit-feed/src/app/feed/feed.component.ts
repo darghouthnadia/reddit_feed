@@ -9,20 +9,16 @@ import { environment } from '../../environments/environment';
   styleUrls: ['./feed.component.css']
 })
 export class FeedComponent implements OnInit {
-
-
-  public initialRedditFeed: RedditEntry[] = [];
+  
   @Input() fetchedPageRedditFeed: RedditEntry[] = [];
 
-  public redditUrl = environment.redditDataUrl;
   constructor(private getRedditFeed : redditFeedService) { }
 
   ngOnInit(): void {
-    this.getRedditFeed.getFeed(this.redditUrl, 25).subscribe((entry: any) => {
-      this.initialRedditFeed = entry;
-      this.getRedditFeed.setLastEntryId(this.initialRedditFeed);
-      this.getRedditFeed.setFirstEntryId(this.initialRedditFeed);
+    this.getRedditFeed.getFeed(25, 'sweden').subscribe((entry: any) => {
+      this.fetchedPageRedditFeed = entry;
+      this.getRedditFeed.setLastEntryId(this.fetchedPageRedditFeed);
+      this.getRedditFeed.setFirstEntryId(this.fetchedPageRedditFeed);
     })
-   
   }
 }
