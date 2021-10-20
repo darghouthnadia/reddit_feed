@@ -1,6 +1,6 @@
-<div>
-    <div *ngIf="fetchedPageRedditFeed.length">
-        <div *ngFor="let entry of fetchedPageRedditFeed">
+<div class="border">
+    <div class="innerContainer display-flex direction-column padding-16 flex-gap-12" *ngIf="fetchedPageRedditFeed.length">
+        <div class="display-flex width-100 padding-16 box-shadow radius-round" *ngFor="let entry of fetchedPageRedditFeed">
             <app-reddit-entry [entry]="entry"></app-reddit-entry>
         </div>
     </div>

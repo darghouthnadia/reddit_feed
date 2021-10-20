@@ -1,0 +1,31 @@
+.border {
+    display: flex;
+    justify-content: center;
+    background-color: #eeeeee;
+}
+
+.display-flex {
+    display: flex;
+}
+
+.innerContainer {
+    width: 1200px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex-gap-24 {
+    gap: 24px;
+}
+
+.padding-16 {
+    padding: 16px;
+}
+
+.padding-child-16 > * {
+    padding: 16px;
+}
+
+button {
+    background-color: lightblue
+}

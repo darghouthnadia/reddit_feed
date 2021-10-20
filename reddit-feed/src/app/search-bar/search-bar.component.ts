@@ -12,7 +12,7 @@ export class SearchBarComponent implements OnInit {
   public lastId = '';
   public firstId = '';
   public items: RedditEntry[] = [];
-  channel = '';
+  channel = 'sweden';
   storageOfIds = {last:'', first:''};
  
   selectedOption: number = 25;
