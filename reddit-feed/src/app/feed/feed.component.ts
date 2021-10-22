@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { redditFeedService } from '../redditFeed.service';
 import { RedditEntry } from '../reddit-entry.model';
-import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-feed',

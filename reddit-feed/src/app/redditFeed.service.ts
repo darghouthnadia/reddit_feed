@@ -32,10 +32,8 @@ export class redditFeedService {
       rxMap(response => response as any),
       rxMap(json => json.data.children as Array<any>),
       rxMap(children => children.map(d =>
-        new RedditEntry(d.data.id, d.data.title, d.data.url, d.data.author, this.formatDate(d.data.created),d.data.num_comments, d.data.ups))),
+        new RedditEntry(d.data.id, d.data.title, d.data.url, d.data.author, this.formatDate(d.data.created),d.data.num_comments, d.data.score, d.data.thumbnail))),
     )
-    
-    
   }
 
   public setLastEntryId(redditFeedArray : RedditEntry[]) {

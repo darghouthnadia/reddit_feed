@@ -7,6 +7,7 @@ export class RedditEntry {
       public created: Date,
       public num_comments: number = 1,
       public score: number = 1,
+      public thumbnail: any = null
      
     ) {
     }

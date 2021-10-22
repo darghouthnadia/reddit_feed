@@ -29,27 +29,62 @@ export class SearchBarComponent implements OnInit {
   onNext(): void {
     this.storageOfIds.last = this.lastId;
     this.storageOfIds.first = this.firstId;
-    this.getRedditFeed.getFeed(this.selectedOption, this.channel, this.lastId).subscribe(result => {
-      this.items = result;
-      this.getRedditFeed.setLastEntryId(this.items);
-      this.getRedditFeed.setFirstEntryId(this.items);
-      this.refreshLastAndFirstId();
-      this.newItemEvent.emit(this.items);
-      this.page += 1;
-    });
+    this.buildRedditFeedAfterAction(this.selectedOption, this.channel, this.lastId, '', true)
   }
 
   onPrevious(): void {
     this.storageOfIds.last = this.lastId;
     this.storageOfIds.first = this.firstId;
-    this.getRedditFeed.getFeed( Number(this.selectedOption) + 1,this.channel, undefined, this.firstId).subscribe(result => {
+    this.buildRedditFeedAfterAction(Number(this.selectedOption) + 1, this.channel, '', this.firstId, false, true)
+  }
+
+  selectOption(deviceValue: any) {
+    this.selectedOption = deviceValue.target.value;
+    if (this.page === 1) {
+      this.buildRedditFeedAfterAction(this.selectedOption, this.channel)
+    }
+    else {
+      this.buildRedditFeedAfterAction(this.selectedOption,this.channel, this.storageOfIds.last)
+    }
+
+  }
+
+  onChangeChannel() {
+    this.page = 1;
+    this.buildRedditFeedAfterAction(this.selectedOption, this.channel)
+  }
+
+  buildRedditFeedAfterAction(numberOfEntriesSelected: number, channel: string, lastId?: string, firstId?: string, next?: boolean, previous?: boolean) {
+    this.getRedditFeed.getFeed(numberOfEntriesSelected, channel, lastId, firstId).subscribe(result => {
       this.items = result;
       this.getRedditFeed.setLastEntryId(this.items);
       this.getRedditFeed.setFirstEntryId(this.items);
       this.refreshLastAndFirstId();
       this.newItemEvent.emit(this.items);
-      this.page -= 1;
+      if(next) {
+        this.nextPage();
+      }
+      else if(previous) {
+        this.previousPage()
+      }
+    },
+    err => {
+      this.items=[];
+      this.page = 1;
+      this.newItemEvent.emit([]);
     });
+  }
+
+  nextPage() {
+    this.page += 1;
+  }
+
+  previousPage() {
+    this.page -= 1;
+  }
+
+  notOnFirstPage() {
+    return this.page === 1;
   }
 
   refreshLastAndFirstId() {
@@ -62,51 +97,6 @@ export class SearchBarComponent implements OnInit {
       console.log('first', value);
     });
   }
-
-  notOnFirstPage() {
-    return this.page === 1;
-  }
-
-  selectOption(deviceValue: any) {
-    this.selectedOption = deviceValue.target.value;
-    if (this.page === 1) {
-      this.getRedditFeed.getFeed(this.selectedOption, this.channel).subscribe(result => {
-        this.items = result;
-        this.getRedditFeed.setLastEntryId(this.items);
-        this.getRedditFeed.setFirstEntryId(this.items);
-        this.refreshLastAndFirstId();
-        this.newItemEvent.emit(this.items);
-      },
-      err => console.log('HTTP Error', err));
-    }
-    else {
-      this.getRedditFeed.getFeed(this.selectedOption,this.channel, this.storageOfIds.last).subscribe(result => {
-        this.items = result;
-        this.getRedditFeed.setLastEntryId(this.items);
-        this.getRedditFeed.setFirstEntryId(this.items);
-        this.refreshLastAndFirstId();
-        this.newItemEvent.emit(this.items);
-      });
-    }
-
-  }
-
-  onChangeChannel() {
-    this.page = 1;
-    this.getRedditFeed.getFeed(this.selectedOption, this.channel).subscribe(result => {
-      this.items = result;
-      this.getRedditFeed.setLastEntryId(this.items);
-      this.getRedditFeed.setFirstEntryId(this.items);
-      this.refreshLastAndFirstId();
-      this.newItemEvent.emit(this.items);
-    },
-    err => {
-      this.items=[];
-      this.page = 1;
-      this.newItemEvent.emit([]);
-    });
-  }
-
 
 
 }
