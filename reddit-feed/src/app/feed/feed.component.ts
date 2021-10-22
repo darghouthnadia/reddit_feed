@@ -18,6 +18,7 @@ export class FeedComponent implements OnInit {
       this.fetchedPageRedditFeed = entry;
       this.getRedditFeed.setLastEntryId(this.fetchedPageRedditFeed);
       this.getRedditFeed.setFirstEntryId(this.fetchedPageRedditFeed);
+      this.getRedditFeed.currentFeed = this.fetchedPageRedditFeed;
     })
   }
 }

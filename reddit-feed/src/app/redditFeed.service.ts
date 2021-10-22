@@ -10,6 +10,7 @@ import { environment} from '../environments/environment';
 export class redditFeedService {
     numberOfEntries : number = 25;
     public redditDataUrl = environment.redditDataUrl;
+    public currentFeed : RedditEntry[] =[]; 
     
     public lastEntryId = new BehaviorSubject('');
     public firstEntryId =  new BehaviorSubject('');
@@ -47,5 +48,10 @@ export class redditFeedService {
   formatDate(entryDate: number): Date {
     return new Date(entryDate*1000);
   }
+
+  public getEntry(id : string ) {
+    return this.currentFeed.filter( entry => entry.id === id)[0];
+  }
+
 
 }

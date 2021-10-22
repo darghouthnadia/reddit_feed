@@ -29,3 +29,7 @@
 button {
     background-color: lightblue
 }
+
+button:disabled {
+    background-color: gray
+}

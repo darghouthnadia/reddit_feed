@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { RedditEntry } from './reddit-entry.model';
 
 @Component({
   selector: 'app-root',
@@ -8,10 +7,4 @@ import { RedditEntry } from './reddit-entry.model';
 })
 export class AppComponent {
   title = 'reddit-feed';
-
-  public fetchedEntries : RedditEntry[] = [];
-
-  fetchNewEntries(newEntries: RedditEntry[]) {
-    this.fetchedEntries = newEntries;
-  }
 }

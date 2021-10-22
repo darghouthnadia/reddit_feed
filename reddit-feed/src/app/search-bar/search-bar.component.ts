@@ -55,6 +55,7 @@ export class SearchBarComponent implements OnInit {
   buildRedditFeedAfterAction(numberOfEntriesSelected: number, channel: string, lastId?: string, firstId?: string, next?: boolean, previous?: boolean) {
     this.getRedditFeed.getFeed(numberOfEntriesSelected, channel, lastId, firstId).subscribe(result => {
       this.items = result;
+      this.getRedditFeed.currentFeed = this.items 
       this.getRedditFeed.setLastEntryId(this.items);
       this.getRedditFeed.setFirstEntryId(this.items);
       this.refreshLastAndFirstId();
