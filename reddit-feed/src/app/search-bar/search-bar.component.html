@@ -1,7 +1,7 @@
 <div class="border">
     <span class="innerContainer">
         <span class="searchContainer display-flex flex-gap-24 padding-16 padding-child-16">
-            <input type="text" id="channel" [(ngModel)]="channel">
+            <input type="text" id="channel" [(ngModel)]="channel" (keydown.enter)="onChangeChannel()">
             <button type="button" (click)="onChangeChannel()">Search</button>
         </span>
 

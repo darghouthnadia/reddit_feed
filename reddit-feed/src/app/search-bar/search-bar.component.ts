@@ -28,13 +28,11 @@ export class SearchBarComponent implements OnInit {
 
   onNext(): void {
     this.storageOfIds.last = this.lastId;
-    this.storageOfIds.first = this.firstId;
     this.buildRedditFeedAfterAction(this.selectedOption, this.channel, this.lastId, '', true)
   }
 
   onPrevious(): void {
     this.storageOfIds.last = this.lastId;
-    this.storageOfIds.first = this.firstId;
     this.buildRedditFeedAfterAction(Number(this.selectedOption) + 1, this.channel, '', this.firstId, false, true)
   }
 
@@ -90,13 +88,9 @@ export class SearchBarComponent implements OnInit {
   refreshLastAndFirstId() {
     this.getRedditFeed.lastEntryId.subscribe(value => {
       this.lastId = value;
-      console.log('last', value);
     });
     this.getRedditFeed.firstEntryId.subscribe(value => {
       this.firstId = value;
-      console.log('first', value);
     });
   }
-
-
 }
