@@ -1,19 +1,17 @@
-<div class="border">
-    <span class="innerContainer">
-        <span class="searchContainer display-flex flex-gap-24 padding-16 padding-child-16">
-            <input type="text" id="channel" [(ngModel)]="channel" (keydown.enter)="onChangeChannel()">
-            <button type="button" (click)="onChangeChannel()">Search</button>
-        </span>
+<div class="display-flex justify-space-between">
+    <span class="searchContainer display-flex flex-gap-24 padding-16 padding-child-16">
+        <input type="text" id="channel" [(ngModel)]="channel" (keydown.enter)="onChangeChannel()" class="box-shadow-5">
+        <button type="button" (click)="onChangeChannel()">Search</button>
+    </span>
 
-        <span class="paginationContainer display-flex flex-gap-24 padding-16 padding-child-16">
-            <button [disabled]="notOnFirstPage()" (click)="onPrevious()">Previous</button>
-            <select name="perPage" (change)="selectOption($event)">
-                <option value=10>10</option>
-                <option value=25 selected="selected">25</option>
-                <option value=50>50</option>
-            </select>
-            <button (click)="onNext()">Next</button> 
-            <span>page: {{page}}</span>
-        </span>
+    <span class="paginationContainer display-flex flex-gap-24 padding-16 padding-child-16">
+        <button [disabled]="notOnFirstPage()" (click)="onPrevious()">Previous</button>
+        <select name="perPage" (change)="selectOption($event)" class="box-shadow-5 pr-16">
+            <option value=10>10</option>
+            <option value=25 selected="selected">25</option>
+            <option value=50>50</option>
+        </select>
+        <button (click)="onNext()">Next</button> 
+        <span>page: {{page}}</span>
     </span>
 </div>

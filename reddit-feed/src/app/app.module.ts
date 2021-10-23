@@ -11,6 +11,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { redditFeedService } from './redditFeed.service';
 import { SearchFeedComponent } from './search-feed/search-feed.component';
 import { AppRoutingModule } from './/app-routing.module';
+import { HeaderComponent } from './header/header.component';
+import { PageWrapperComponent } from './page-wrapper/page-wrapper.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { AppRoutingModule } from './/app-routing.module';
     FeedComponent,
     SearchBarComponent,
     RedditEntryComponent,
-    SearchFeedComponent
+    SearchFeedComponent,
+    HeaderComponent,
+    PageWrapperComponent
   ],
   imports: [
     BrowserModule,

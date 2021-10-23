@@ -6,7 +6,7 @@ import { redditFeedService } from '../redditFeed.service';
 @Component({
   selector: 'app-reddit-entry',
   templateUrl: './reddit-entry.component.html',
-  styleUrls: ['./reddit-entry.component.css']
+  styleUrls: ['./reddit-entry.component.css', '../app.component.css']
 })
 export class RedditEntryComponent implements OnInit {
 

@@ -1,19 +1,25 @@
-<div *ngIf="entry" > 
-    <label>Author:</label>
-    <span>{{entry.author}}</span>
-     <br>
-    <label>Title:</label>
-    <span>{{entry.title}}</span>
-    <br>
-    <label>Score:</label>
-    <span>{{entry.score}}</span>
-    <br>
-    <label>Created:</label>
-    <span>{{entry.created}}</span>
-    <br>
-    <label>Num comments:</label>
-    <span>{{entry.num_comments}}</span>
-    <br>
-    <label>Thumbnail:</label>
-    <img [src]="entry.thumbnail" alt="Thumbnail">
+<div *ngIf="entry" class="width-100 padding-16 box-shadow radius-round bg-white">
+    
+    <div class="display-flex">
+    
+        <div class="flex-2 direction-column flex-gap-12">
+            <div class="text-sm text-gray-700">
+                <label>Posted by:</label>
+                <span> {{entry.author}} </span><span>{{entry.created}}</span>
+            </div>
+            <div class="text-xl">
+                <span>{{entry.title}}</span>
+            </div>
+        </div>
+        
+        <div class="flex-1 thumbnail-container" >
+            <img [src]="entry.thumbnail" alt="Thumbnail">
+        </div>
+    </div>
+
+    <div class="border-t-2 display-flex direction-column align-end mt-12">
+        <label>Score: <span>{{entry.score}}</span></label>
+        <span>{{entry.num_comments}} comments</span>
+    </div>
+
 </div>

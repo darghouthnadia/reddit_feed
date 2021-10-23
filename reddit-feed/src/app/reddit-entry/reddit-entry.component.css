@@ -1,0 +1,7 @@
+:host {
+    width: 100%;
+}
+
+.thumbnail-container > *{
+    margin-left: auto;
+}

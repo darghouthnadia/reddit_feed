@@ -5,7 +5,7 @@ import { RedditEntry } from '../reddit-entry.model';
 @Component({
   selector: 'app-search-bar',
   templateUrl: './search-bar.component.html',
-  styleUrls: ['./search-bar.component.css']
+  styleUrls: ['./search-bar.component.css', '../app.component.css']
 })
 export class SearchBarComponent implements OnInit {
 
