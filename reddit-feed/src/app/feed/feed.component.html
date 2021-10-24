@@ -6,9 +6,13 @@
     <span class="paginationContainer display-flex flex-gap-24 padding-16 padding-child-16">
         <button [disabled]="notOnFirstPage()" (click)="onPrevious()">Previous</button>
         <select name="perPage" (change)="selectOption($event)" class="box-shadow-5 pr-16">
-           <option *ngFor="let option of optionList" [value]="option"> {{option}} </option>
+            <option *ngFor="let option of optionList" [value]="option"> {{option}} </option>
         </select>
-        <button (click)="onNext()">Next</button> 
+        <button (click)="onNext()">Next</button>
         <span>page: {{page}}</span>
     </span>
+</div>
+
+<div *ngIf="items.length === 0">
+    <img src="/assets/img/nodatafound.png">
 </div>
