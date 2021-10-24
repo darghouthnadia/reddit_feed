@@ -11,6 +11,7 @@ import { redditFeedService } from '../redditFeed.service';
 export class RedditEntryComponent implements OnInit {
 
   @Input() entry: RedditEntry | undefined;
+  public imageUrlError: boolean = false;
   passedItem : RedditEntry | undefined;
   constructor( private router: Router, private route: ActivatedRoute, private getRedditFeed : redditFeedService) {
     let id = this.route.snapshot.paramMap.get('id');
@@ -21,7 +22,12 @@ export class RedditEntryComponent implements OnInit {
 
   ngOnInit(): void {
     (!this.passedItem) ? this.router.navigate(['/']) : this.entry =this.passedItem;
-     
+     this.checkImageURL(this.entry?.thumbnail);
+  }
+
+  public checkImageURL(url : string) {
+    this.imageUrlError = !(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
+    console.log(this.imageUrlError);
   }
 
 }

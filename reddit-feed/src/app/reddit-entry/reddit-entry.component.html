@@ -13,7 +13,7 @@
         </div>
         
         <div class="flex-1 thumbnail-container" >
-            <img [src]="entry.thumbnail" alt="Thumbnail">
+            <img  *ngIf="!imageUrlError" [src]="entry.thumbnail" alt="Thumbnail">
         </div>
     </div>
 
