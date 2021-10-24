@@ -27,7 +27,6 @@ export class RedditEntryComponent implements OnInit {
 
   public checkImageURL(url : string) {
     this.imageUrlError = !(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
-    console.log(this.imageUrlError);
   }
 
 }
