@@ -12,10 +12,12 @@ export class RedditEntryComponent implements OnInit {
 
   @Input() entry: RedditEntry | undefined;
   public imageUrlError: boolean = false;
+  public showText: boolean = false;
   passedItem : RedditEntry | undefined;
   constructor( private router: Router, private route: ActivatedRoute, private redditFeedService : redditFeedService) {
     let id = this.route.snapshot.paramMap.get('id');
     if(id) {
+      this.showText = true; 
       this.passedItem = this.redditFeedService.getEntry(id);
     }
    }

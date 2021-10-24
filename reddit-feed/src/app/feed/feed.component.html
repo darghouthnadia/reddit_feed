@@ -1,7 +1,5 @@
-<div class="display-flex">
-    <div *ngIf="fetchedPageRedditFeed.length" class="display-flex direction-column flex-gap-16">
-        <a *ngFor="let entry of fetchedPageRedditFeed" routerLink="/entry/{{entry.id}}">
-            <app-reddit-entry [entry]="entry" class="width-100"></app-reddit-entry>
-        </a>
-    </div>
+<div *ngIf="fetchedPageRedditFeed.length" class="display-flex direction-column flex-gap-16">
+    <a *ngFor="let entry of fetchedPageRedditFeed" routerLink="/entry/{{entry.id}}">
+        <app-reddit-entry [entry]="entry" class="width-100"></app-reddit-entry>
+    </a>
 </div>

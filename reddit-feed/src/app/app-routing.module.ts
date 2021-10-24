@@ -5,9 +5,8 @@ import { SearchFeedComponent } from '../app/search-feed/search-feed.component';
 import { RedditEntryComponent } from '../app/reddit-entry/reddit-entry.component';
 
 const routes: Routes = [
-  { path: 'feed', component: SearchFeedComponent },
+  { path: '', component: SearchFeedComponent },
   { path: 'entry/:id', component: RedditEntryComponent },
-  { path: '', redirectTo: '/feed', pathMatch: 'full' },
 ];
 
 @NgModule({

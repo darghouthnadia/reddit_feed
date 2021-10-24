@@ -1,7 +1,7 @@
 <div *ngIf="entry" class="width-100 padding-16 box-shadow radius-round bg-white">
-    
-    <div class="display-flex">
-    
+
+    <div class="display-flex mb-16">
+
         <div class="flex-2 direction-column flex-gap-12">
             <div class="text-sm text-gray-700">
                 <label>Posted by:</label>
@@ -11,10 +11,14 @@
                 <span>{{entry.title}}</span>
             </div>
         </div>
-        
-        <div class="flex-1 thumbnail-container" >
-            <img  *ngIf="!imageUrlError" [src]="entry.thumbnail" alt="Thumbnail">
+
+        <div *ngIf="!imageUrlError" class="flex-1 thumbnail-container">
+            <img [src]="entry.thumbnail" alt="Thumbnail">
         </div>
+    </div>
+
+    <div *ngIf="showText">
+        <p> {{entry.text}} </p>
     </div>
 
     <div class="border-t-2 display-flex direction-column align-end mt-12">

@@ -14,7 +14,7 @@ export class FeedComponent implements OnInit {
   constructor(private redditFeedService : redditFeedService) { }
 
   ngOnInit(): void {
-    this.redditFeedService.getFeed(25, 'sweden').subscribe((entry: any) => {
+    this.redditFeedService.getFeed(10, 'sweden').subscribe((entry: any) => {
       this.fetchedPageRedditFeed = entry;
       this.redditFeedService.setLastEntryId(this.fetchedPageRedditFeed);
       this.redditFeedService.setFirstEntryId(this.fetchedPageRedditFeed);

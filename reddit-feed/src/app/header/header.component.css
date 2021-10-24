@@ -6,3 +6,7 @@
 .logo {
     max-width: 4%;
 }
+
+.logo:hover {
+    cursor: pointer;
+}

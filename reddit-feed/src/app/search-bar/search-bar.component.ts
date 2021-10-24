@@ -15,7 +15,7 @@ export class SearchBarComponent implements OnInit {
   public channel = 'sweden';
   private storageOfIds = {last:'', first:''};
  
-  private selectedOption: number = 25;
+  private selectedOption: number = 10;
   public page: number = 1;
   @Output() refreshFeedEvent = new EventEmitter<RedditEntry[]>();
 
