@@ -15,25 +15,26 @@ export class FeedComponent implements OnInit {
   private lastId: string = '';
   private firstId: string = '';
   public channel: string = 'sweden';
-  private selectedOption: number = 10;
+  public optionList = [5, 10, 25]
   public items: RedditEntry[] = [];
+  public selectedOption = 0;
 
-  constructor(private redditFeedService: redditFeedService, private sharedDataService: dataShareService) { }
+  constructor(private redditFeedService: redditFeedService, private sharedDataService: dataShareService) {
+    this.selectedOption = this.sharedDataService.getNumberOfEntriesPerPage();
+   }
 
   ngOnInit(): void {
-    this.redditFeedService.getFeed(10, this.sharedDataService.getChannel()).subscribe((entry: any) => {
-      this.items = entry;
-      this.redditFeedService.setLastEntryId(this.items);
-      this.redditFeedService.setFirstEntryId(this.items);
-      this.redditFeedService.currentFeed = this.items;
-      this.refreshLastAndFirstId()
-    })
+    this.buildRedditFeedAfterAction(this.sharedDataService.getNumberOfEntriesPerPage(), this.sharedDataService.getChannel());
   }
 
   onNext(): void {
     this.storageOfIds.last = this.lastId;
     this.buildRedditFeedAfterAction(this.selectedOption, this.channel, this.lastId, '', true)
   }
+
+  setChannel(channel: string) {
+    this.channel = channel;
+  } 
 
   onPrevious(): void {
     this.storageOfIds.last = this.lastId;
@@ -42,6 +43,7 @@ export class FeedComponent implements OnInit {
 
   selectOption(deviceValue: any) {
     this.selectedOption = deviceValue.target.value;
+    this.sharedDataService.setNumberOfEntriesPerPage(this.selectedOption);
     if (this.page === 1) {
       this.buildRedditFeedAfterAction(this.selectedOption, this.channel)
     }
@@ -50,33 +52,14 @@ export class FeedComponent implements OnInit {
     }
   }
 
-  buildRedditFeedAfterAction(numberOfEntriesSelected: number, channel: string, lastId?: string, firstId?: string, next?: boolean, previous?: boolean) {
-    this.redditFeedService.getFeed(numberOfEntriesSelected, channel, lastId, firstId).subscribe(result => {
-      this.items = result;
-      this.redditFeedService.currentFeed = this.items
-      this.redditFeedService.setLastEntryId(this.items);
-      this.redditFeedService.setFirstEntryId(this.items);
-      this.refreshLastAndFirstId();
-      if (next) {
-        this.nextPage();
-      }
-      else if (previous) {
-        this.previousPage()
-      }
-    },
-      err => {
-        this.items = [];
-        this.page = 1;
-      });
-  }
-
-
   nextPage() {
     this.page += 1;
+    this.sharedDataService.setPage(this.page);
   }
 
   previousPage() {
     this.page -= 1;
+    this.sharedDataService.setPage(this.page);
   }
 
   notOnFirstPage() {
@@ -90,5 +73,26 @@ export class FeedComponent implements OnInit {
     this.redditFeedService.firstEntryId.subscribe(value => {
       this.firstId = value;
     });
+  }
+
+  buildRedditFeedAfterAction(numberOfEntriesSelected: number, channel: string, lastId?: string, firstId?: string, next?: boolean, previous?: boolean) {
+    this.redditFeedService.getFeed(numberOfEntriesSelected, channel, lastId, firstId).subscribe(result => {
+      this.items = result;
+      this.redditFeedService.currentFeed = this.items
+      this.redditFeedService.setLastEntryId(this.items);
+      this.redditFeedService.setFirstEntryId(this.items);
+      this.refreshLastAndFirstId();
+      this.page = this.sharedDataService.getPage()
+      if (next) {
+        this.nextPage();
+      }
+      else if (previous) {
+        this.previousPage()
+      }
+    },
+      err => {
+        this.items = [];
+        this.page = 1;
+      });
   }
 }
