@@ -11,14 +11,14 @@ export class FeedComponent implements OnInit {
   
   @Input() fetchedPageRedditFeed: RedditEntry[] = [];
 
-  constructor(private getRedditFeed : redditFeedService) { }
+  constructor(private redditFeedService : redditFeedService) { }
 
   ngOnInit(): void {
-    this.getRedditFeed.getFeed(25, 'sweden').subscribe((entry: any) => {
+    this.redditFeedService.getFeed(25, 'sweden').subscribe((entry: any) => {
       this.fetchedPageRedditFeed = entry;
-      this.getRedditFeed.setLastEntryId(this.fetchedPageRedditFeed);
-      this.getRedditFeed.setFirstEntryId(this.fetchedPageRedditFeed);
-      this.getRedditFeed.currentFeed = this.fetchedPageRedditFeed;
+      this.redditFeedService.setLastEntryId(this.fetchedPageRedditFeed);
+      this.redditFeedService.setFirstEntryId(this.fetchedPageRedditFeed);
+      this.redditFeedService.currentFeed = this.fetchedPageRedditFeed;
     })
   }
 }

@@ -9,17 +9,17 @@ import { RedditEntry } from '../reddit-entry.model';
 })
 export class SearchBarComponent implements OnInit {
 
-  public lastId = '';
-  public firstId = '';
+  private lastId = '';
+  private firstId = '';
   public items: RedditEntry[] = [];
-  channel = 'sweden';
-  storageOfIds = {last:'', first:''};
+  public channel = 'sweden';
+  private storageOfIds = {last:'', first:''};
  
-  selectedOption: number = 25;
-  page: number = 1;
-  @Output() newItemEvent = new EventEmitter<RedditEntry[]>();
+  private selectedOption: number = 25;
+  public page: number = 1;
+  @Output() refreshFeedEvent = new EventEmitter<RedditEntry[]>();
 
-  constructor(private getRedditFeed: redditFeedService) {
+  constructor(private redditFeedService: redditFeedService) {
     this.refreshLastAndFirstId();
   }
 
@@ -53,13 +53,13 @@ export class SearchBarComponent implements OnInit {
   }
 
   buildRedditFeedAfterAction(numberOfEntriesSelected: number, channel: string, lastId?: string, firstId?: string, next?: boolean, previous?: boolean) {
-    this.getRedditFeed.getFeed(numberOfEntriesSelected, channel, lastId, firstId).subscribe(result => {
+    this.redditFeedService.getFeed(numberOfEntriesSelected, channel, lastId, firstId).subscribe(result => {
       this.items = result;
-      this.getRedditFeed.currentFeed = this.items 
-      this.getRedditFeed.setLastEntryId(this.items);
-      this.getRedditFeed.setFirstEntryId(this.items);
+      this.redditFeedService.currentFeed = this.items 
+      this.redditFeedService.setLastEntryId(this.items);
+      this.redditFeedService.setFirstEntryId(this.items);
       this.refreshLastAndFirstId();
-      this.newItemEvent.emit(this.items);
+      this.refreshFeedEvent.emit(this.items);
       if(next) {
         this.nextPage();
       }
@@ -70,7 +70,7 @@ export class SearchBarComponent implements OnInit {
     err => {
       this.items=[];
       this.page = 1;
-      this.newItemEvent.emit([]);
+      this.refreshFeedEvent.emit([]);
     });
   }
 
@@ -87,10 +87,10 @@ export class SearchBarComponent implements OnInit {
   }
 
   refreshLastAndFirstId() {
-    this.getRedditFeed.lastEntryId.subscribe(value => {
+    this.redditFeedService.lastEntryId.subscribe(value => {
       this.lastId = value;
     });
-    this.getRedditFeed.firstEntryId.subscribe(value => {
+    this.redditFeedService.firstEntryId.subscribe(value => {
       this.firstId = value;
     });
   }
