@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { RedditEntry } from '../reddit-entry.model';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FeedComponent } from '../feed/feed.component';
 
 @Component({
   selector: 'app-search-feed',
@@ -8,11 +8,12 @@ import { RedditEntry } from '../reddit-entry.model';
 })
 export class SearchFeedComponent implements OnInit {
 
-  public fetchedEntries : RedditEntry[] = [];
+  @ViewChild(FeedComponent) feed: FeedComponent | undefined;
 
-  fetchNewEntries(newEntries: RedditEntry[]) {
-    this.fetchedEntries = newEntries;
+  sendNewChannel(newChannel: string) {
+    this.feed?.buildRedditFeedAfterAction(10, newChannel)
   }
+  
   constructor() { }
 
   ngOnInit(): void {

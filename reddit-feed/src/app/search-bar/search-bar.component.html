@@ -3,15 +3,4 @@
         <input type="text" id="channel" [(ngModel)]="channel" (keydown.enter)="onChangeChannel()" class="box-shadow-5">
         <button type="button" (click)="onChangeChannel()">Search</button>
     </span>
-
-    <span class="paginationContainer display-flex flex-gap-24 padding-16 padding-child-16">
-        <button [disabled]="notOnFirstPage()" (click)="onPrevious()">Previous</button>
-        <select name="perPage" (change)="selectOption($event)" class="box-shadow-5 pr-16">
-            <option value=5>5</option>
-            <option value=10 selected="selected">10</option>
-            <option value=25>25</option>
-        </select>
-        <button (click)="onNext()">Next</button> 
-        <span>page: {{page}}</span>
-    </span>
 </div>

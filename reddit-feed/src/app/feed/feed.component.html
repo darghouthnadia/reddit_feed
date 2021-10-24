@@ -1,5 +1,16 @@
-<div *ngIf="fetchedPageRedditFeed.length" class="display-flex direction-column flex-gap-16">
-    <a *ngFor="let entry of fetchedPageRedditFeed" routerLink="/entry/{{entry.id}}">
+<div *ngIf="items.length" class="display-flex direction-column flex-gap-16">
+    <a *ngFor="let entry of items" routerLink="/entry/{{entry.id}}">
         <app-reddit-entry [entry]="entry" class="width-100"></app-reddit-entry>
     </a>
+
+    <span class="paginationContainer display-flex flex-gap-24 padding-16 padding-child-16">
+        <button [disabled]="notOnFirstPage()" (click)="onPrevious()">Previous</button>
+        <select name="perPage" (change)="selectOption($event)" class="box-shadow-5 pr-16">
+            <option value=5>5</option>
+            <option value=10 selected="selected">10</option>
+            <option value=25>25</option>
+        </select>
+        <button (click)="onNext()">Next</button> 
+        <span>page: {{page}}</span>
+    </span>
 </div>

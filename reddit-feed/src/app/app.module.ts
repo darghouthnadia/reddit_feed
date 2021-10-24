@@ -13,6 +13,7 @@ import { SearchFeedComponent } from './search-feed/search-feed.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { HeaderComponent } from './header/header.component';
 import { PageWrapperComponent } from './page-wrapper/page-wrapper.component';
+import { dataShareService } from './data-shared.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { PageWrapperComponent } from './page-wrapper/page-wrapper.component';
     FormsModule,
     AppRoutingModule
   ],
-  providers: [redditFeedService],
+  providers: [redditFeedService, dataShareService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

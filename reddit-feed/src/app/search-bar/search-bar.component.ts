@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { redditFeedService } from '../redditFeed.service';
 import { RedditEntry } from '../reddit-entry.model';
+import { dataShareService } from '../data-shared.service';
 
 @Component({
   selector: 'app-search-bar',
@@ -9,47 +10,23 @@ import { RedditEntry } from '../reddit-entry.model';
 })
 export class SearchBarComponent implements OnInit {
 
-  private lastId = '';
-  private firstId = '';
   public items: RedditEntry[] = [];
-  public channel = 'sweden';
-  private storageOfIds = {last:'', first:''};
+  public channel = '';
  
-  private selectedOption: number = 10;
   public page: number = 1;
-  @Output() refreshFeedEvent = new EventEmitter<RedditEntry[]>();
+  @Output() newChannelEvent = new EventEmitter<string>();
 
-  constructor(private redditFeedService: redditFeedService) {
-    this.refreshLastAndFirstId();
+
+  constructor(private redditFeedService: redditFeedService, sharedDataService: dataShareService) {
+    this.channel = sharedDataService.getChannel();
   }
 
   ngOnInit(): void {
   }
 
-  onNext(): void {
-    this.storageOfIds.last = this.lastId;
-    this.buildRedditFeedAfterAction(this.selectedOption, this.channel, this.lastId, '', true)
-  }
-
-  onPrevious(): void {
-    this.storageOfIds.last = this.lastId;
-    this.buildRedditFeedAfterAction(Number(this.selectedOption) + 1, this.channel, '', this.firstId, false, true)
-  }
-
-  selectOption(deviceValue: any) {
-    this.selectedOption = deviceValue.target.value;
-    if (this.page === 1) {
-      this.buildRedditFeedAfterAction(this.selectedOption, this.channel)
-    }
-    else {
-      this.buildRedditFeedAfterAction(this.selectedOption,this.channel, this.storageOfIds.last)
-    }
-
-  }
 
   onChangeChannel() {
-    this.page = 1;
-    this.buildRedditFeedAfterAction(this.selectedOption, this.channel)
+    this.newChannelEvent.emit(this.channel);
   }
 
   buildRedditFeedAfterAction(numberOfEntriesSelected: number, channel: string, lastId?: string, firstId?: string, next?: boolean, previous?: boolean) {
@@ -58,8 +35,6 @@ export class SearchBarComponent implements OnInit {
       this.redditFeedService.currentFeed = this.items 
       this.redditFeedService.setLastEntryId(this.items);
       this.redditFeedService.setFirstEntryId(this.items);
-      this.refreshLastAndFirstId();
-      this.refreshFeedEvent.emit(this.items);
       if(next) {
         this.nextPage();
       }
@@ -70,7 +45,6 @@ export class SearchBarComponent implements OnInit {
     err => {
       this.items=[];
       this.page = 1;
-      this.refreshFeedEvent.emit([]);
     });
   }
 
@@ -86,12 +60,4 @@ export class SearchBarComponent implements OnInit {
     return this.page === 1;
   }
 
-  refreshLastAndFirstId() {
-    this.redditFeedService.lastEntryId.subscribe(value => {
-      this.lastId = value;
-    });
-    this.redditFeedService.firstEntryId.subscribe(value => {
-      this.firstId = value;
-    });
-  }
 }
