@@ -5,7 +5,7 @@ import { dataShareService } from '../data-shared.service';
 @Component({
   selector: 'app-search-feed',
   templateUrl: './search-feed.component.html',
-  styleUrls: ['./search-feed.component.css']
+  styleUrls: ['./search-feed.component.css', '../app.component.css']
 })
 export class SearchFeedComponent implements OnInit {
 

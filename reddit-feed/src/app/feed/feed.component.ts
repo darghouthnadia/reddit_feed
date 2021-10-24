@@ -30,6 +30,7 @@ export class FeedComponent implements OnInit {
   onNext(): void {
     this.storageOfIds.last = this.lastId;
     this.buildRedditFeedAfterAction(this.selectedOption, this.channel, this.lastId, '', true)
+    window.scrollTo({top: 0, behavior: 'smooth'});
   }
 
   setChannel(channel: string) {

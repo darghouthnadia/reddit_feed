@@ -1,3 +1,7 @@
 .innerContainer {
     width: 900px;
 }
+
+.innerContainer > div{
+    width: 100%;
+}

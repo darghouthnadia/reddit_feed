@@ -1,8 +1,14 @@
 <div *ngIf="entry" class="width-100 padding-16 box-shadow radius-round bg-white">
 
-    <div class="display-flex mb-16">
+    <div class="display-flex mb-16 flex-gap-16">
 
-        <div class="flex-2 direction-column flex-gap-12">
+        <div class="score display-flex direction-column flex-gap-6">
+            <div class="upvote"></div>
+            <div class="scoreCount">{{entry.score}}</div>
+            <div class="downvote"></div>
+        </div>
+
+        <div class="flex-2 direction-column flex-gap-16">
             <div class="text-sm text-gray-700">
                 <label>Posted by:</label>
                 <span> {{entry.author}} </span><span>{{entry.created}}</span>
@@ -10,19 +16,21 @@
             <div class="text-xl">
                 <span>{{entry.title}}</span>
             </div>
+            <div class="mt-16" *ngIf="showText">
+                <p> {{entry.text}} </p>
+            </div>
         </div>
 
         <div *ngIf="!imageUrlError" class="flex-1 thumbnail-container">
             <img [src]="entry.thumbnail" alt="Thumbnail">
         </div>
-    </div>
 
-    <div *ngIf="showText">
-        <p> {{entry.text}} </p>
+        <div *ngIf="imageUrlError" class="flex-1 thumbnail-container">
+            <img src="../assets/img/self-reddit.png" alt="Thumbnail">
+        </div>
     </div>
 
     <div class="border-t-2 display-flex direction-column align-end mt-12">
-        <label>Score: <span>{{entry.score}}</span></label>
         <span>{{entry.num_comments}} comments</span>
     </div>
 
