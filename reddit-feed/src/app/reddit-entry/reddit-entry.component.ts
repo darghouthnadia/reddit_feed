@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { RedditEntry } from '../reddit-entry.model';
 import { Router, ActivatedRoute } from '@angular/router';
-import { redditFeedService } from '../redditFeed.service';
+import { redditFeedService } from '../reddit-feed.service';
 
 @Component({
   selector: 'app-reddit-entry',

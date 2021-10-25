@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { redditFeedService } from '../redditFeed.service';
+import { redditFeedService } from '../reddit-feed.service';
 import { dataShareService } from '../data-shared.service';
 import { RedditEntry } from '../reddit-entry.model';
 
