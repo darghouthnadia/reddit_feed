@@ -6,6 +6,11 @@ a {
 .font-verdana {
     font-family: Verdana;
 }
+.bottom-entry-font {
+    font-family: Arial;
+    color: gray;
+    font-weight: 700;
+}
 
 .bg-white {
     background-color: #fff;
