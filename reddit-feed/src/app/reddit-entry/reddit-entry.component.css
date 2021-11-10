@@ -4,6 +4,7 @@
 
 .thumbnail-container > *{
     margin-left: auto;
+    max-width: 150px;
 }
 
 .score {

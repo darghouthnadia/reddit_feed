@@ -17,12 +17,16 @@
                 <span>{{entry.title}}</span>
             </div>
             <div class="mt-16 whitespace-pre-wrap" *ngIf="showText">
-                <p>{{entry.text}} </p>
+                <p> {{entry.text}} </p>
             </div>
+        </div>
 
-            <div *ngIf="!imageUrlError">
-                <img [src]="entry.thumbnail" class="width-100 padding-16" alt="Thumbnail">
-            </div>
+        <div *ngIf="!imageUrlError">
+            <img [src]="entry.thumbnail" alt="Thumbnail">
+        </div>
+
+        <div *ngIf="imageUrlError" class="flex-1 thumbnail-container">
+            <img src="../assets/img/self-reddit.png" alt="Thumbnail">
         </div>
     </div>
 
